@@ -1,0 +1,26 @@
+name: First pipeline
+
+on:
+  workflow_dispatch:
+
+
+jobs:
+  terraform-plan:
+    runs-on: ubuntu-latest
+    name: Terraform plan
+    environment: nonprod
+
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+      - name: 'Checkout code'
+        uses: actions/checkout@v4
+
+      - name: 'Test'
+        run: |
+          echo "This is: ${{ vars.SERVICE_ACCOUNT }}"
+
+
+
