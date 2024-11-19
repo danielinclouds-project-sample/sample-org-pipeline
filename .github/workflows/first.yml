@@ -1,14 +1,16 @@
 name: First pipeline
 
 on:
-  workflow_dispatch:
-
+  push:
+    branches:
+      - main
+      - production
 
 jobs:
   terraform-plan:
     runs-on: ubuntu-latest
     name: Terraform plan
-    environment: nonprod
+    environment: ${{ github.ref == 'refs/heads/production' && 'production' || 'nonprod' }}
 
     permissions:
       contents: 'read'
@@ -21,6 +23,4 @@ jobs:
       - name: 'Test'
         run: |
           echo "This is: ${{ vars.SERVICE_ACCOUNT }}"
-
-
 
